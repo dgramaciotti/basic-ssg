@@ -89,15 +89,3 @@ location / {
     try_files $uri $uri/ $uri.html =404;
 }
 ```
-
-## Deployment
-
-### NGINX
-
-```nginx
-location / {
-    root /usr/share/nginx/html;
-    index index.html;
-    try_files $uri $uri/ $uri.html =404;
-}
-```
