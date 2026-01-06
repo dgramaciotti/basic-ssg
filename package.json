@@ -11,13 +11,27 @@
     "./plugins/blog": "./dist/core/plugins/blog.js",
     "./plugins/article": "./dist/core/plugins/article.js"
   },
-  "description": "A basic static site generator for node.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgramaciotti/basic-ssg.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dgramaciotti/basic-ssg/issues"
+  },
+  "homepage": "https://github.com/dgramaciotti/basic-ssg#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build-cli": "pnpm run build:typescript && basic-ssg init && basic-ssg build",
     "clean": "rm -rf dist dist-site temp pages *.tsbuildinfo packages/*/*.tsbuildinfo",
     "test": "vitest",
     "tsc": "tsc",
-    "build:typescript": "npm run clean && npm run tsc && npm run build --workspaces && cp -R packages/templates dist/templates"
+    "build:typescript": "npm run clean && npm run tsc && npm run build --workspaces && cp -R packages/templates dist/templates",
+    "version:patch": "pnpm -r version patch && git add . && git commit -m \"chore: release v$(node -p \"require('./package.json').version\")\"",
+    "version:minor": "pnpm -r version minor && git add . && git commit -m \"chore: release v$(node -p \"require('./package.json').version\")\"",
+    "version:major": "pnpm -r version major && git add . && git commit -m \"chore: release v$(node -p \"require('./package.json').version\")\"",
+    "publish:all": "pnpm -r publish --access public"
   },
   "bin": {
     "basic-ssg": "bin/basic-ssg.js"

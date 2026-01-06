@@ -65,8 +65,9 @@ describe("correctly builds", () => {
     expect(exists).toBe(true);
 
     const content = await fs.readFile(articleIndexPath, "utf-8");
-    // "Example Blog Post" is the title in the markdown gray-matter
-    expect(content).toContain("<li>Example Blog Post</li>");
+    // Check if the article title exists in the index
+    expect(content).toContain("Example Blog Post");
+    expect(content).toContain('href="/example-page/articles/example-post"');
   });
 
   afterAll(async () => {

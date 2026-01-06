@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "main": "dist/index.js",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgramaciotti/basic-ssg.git",
+    "directory": "packages/plugin-assets"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc"
   },
