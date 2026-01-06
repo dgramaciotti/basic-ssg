@@ -90,28 +90,14 @@ location / {
 }
 ```
 
-## Publishing
+## Deployment
 
-BasicSSG follows a unified versioning strategy. To release a new version of all packages:
+### NGINX
 
-1.  **Bump Version**: Run one of the following from the root:
-    - `npm run version:patch`
-    - `npm run version:minor`
-    - `npm run version:major`
-    
-    This will update all packages, commit the changes, and create a git tag.
-
-2.  **Push Tags**:
-    ```bash
-    git push origin main --tags
-    ```
-
-3.  **Automatic Release**: The GitHub Action will detect the new tag and automatically publish all packages to NPM.
-
-## Development
-
-To count the lines of code in this repository (excluding assets and lock files):
-
-```bash
-git ls-files --cached --others --exclude-standard | grep -vE '\.(png|jpg|jpeg|svg|webp|avif|lock|yaml|mp4|json)$' | xargs wc -l
+```nginx
+location / {
+    root /usr/share/nginx/html;
+    index index.html;
+    try_files $uri $uri/ $uri.html =404;
+}
 ```
