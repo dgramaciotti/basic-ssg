@@ -18,11 +18,13 @@ jobs:
           version: 9
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24.12
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install
+        run: |
+          npm install -g npm@latest
+          pnpm install
 
       - name: Build
         run: |
@@ -31,4 +33,6 @@ jobs:
           cp -R packages/templates dist/templates
 
       - name: Publish all packages
-        run: pnpm -r publish --access public --no-git-checks --provenance
+        run: |
+          pnpm config set //registry.npmjs.org/:token-type oidc
+          pnpm -r publish --access public --no-git-checks --provenance
