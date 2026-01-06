@@ -1,0 +1,19 @@
+<%- include("../components/_head", { title: 'Example Path' }) %>
+<body class="flex flex-col min-h-screen">
+    <%- include("../components/_header") %>
+
+    <main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <h1 class="text-4xl font-extrabold text-slate-900 mb-6">Example Custom Path</h1>
+        <p class="text-xl text-slate-600 mb-10">
+            This page demonstrates how you can create custom directory structures and still maintain a consistent look and feel using shared components.
+        </p>
+        <div class="bg-white p-8 rounded-2xl border border-blue-50 shadow-sm">
+            <p class="text-slate-500 italic">
+                Files placed in subdirectories under the root are automatically handled by the EJS plugin.
+            </p>
+        </div>
+    </main>
+
+    <%- include("../components/_footer") %>
+</body>
+</html>

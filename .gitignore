@@ -1,0 +1,11 @@
+node_modules
+.DS_STORE
+dist
+dist-*
+.vscode
+temp
+drive-api*
+.env*
+*-lock*
+pages/**
+coverage

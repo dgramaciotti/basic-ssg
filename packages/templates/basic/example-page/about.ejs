@@ -1,0 +1,33 @@
+<%- include("./components/_head", { title: 'About' }) %>
+<body class="flex flex-col min-h-screen">
+    <%- include("./components/_header") %>
+
+    <main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <article class="prose prose-slate max-w-none">
+            <h1 class="text-4xl font-extrabold text-slate-900 mb-8">About BasicSSG</h1>
+            <p class="text-lg text-slate-600 leading-relaxed mb-6">
+                BasicSSG was born from the desire for a genuinely simple static site generator. In a world of complex meta-frameworks, sometimes you just want to write HTML (via EJS), style with Tailwind, and deploy a few static files.
+            </p>
+            
+            <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-4">Our Core Philosophy</h2>
+            <ul class="space-y-4 text-slate-600">
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 flex-shrink-0 w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                    <span><strong>No Frameworks:</strong> No React, Vue, or Svelte. Just EJS templates that compile to plain HTML.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 flex-shrink-0 w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                    <span><strong>Plug and Play:</strong> Use only what you need. Assets, Sitemap, Tailwind—all optional plugins.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 flex-shrink-0 w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                    <span><strong>Developer First:</strong> Fast builds, simple configuration, and full control over your output.</span>
+                </li>
+            </ul>
+
+        </article>
+    </main>
+
+    <%- include("./components/_footer") %>
+</body>
+</html>

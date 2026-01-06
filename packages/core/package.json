@@ -1,0 +1,29 @@
+{
+  "name": "@basic-ssg/core",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./models/appConfig": "./dist/models/appConfig.js",
+    "./models/plugin": "./dist/models/plugin.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "fast-glob": "^3.3.3",
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0",
+    "tailwindcss": "^4.1.16",
+    "through2": "^4.0.2",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "@types/node": "^25.0.3"
+  }
+}

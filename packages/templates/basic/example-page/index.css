@@ -1,0 +1,72 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --blue-50: #f0f9ff;
+  --blue-100: #e0f2fe;
+  --blue-500: #0ea5e9;
+  --blue-600: #0284c7;
+  --blue-900: #0c4a6e;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  @apply bg-slate-50 text-slate-900;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold text-slate-900 tracking-tight;
+}
+
+.prose a, .article-body a {
+  @apply text-blue-600 hover:text-blue-700 transition-colors;
+}
+
+.article-body {
+  @apply text-slate-700 leading-relaxed;
+}
+
+.article-body h1 { @apply text-3xl mb-8 mt-12; }
+.article-body h2 { @apply text-2xl mb-6 mt-10 border-b border-blue-50 pb-2; }
+.article-body h3 { @apply text-xl mb-4 mt-8; }
+
+.article-body p { @apply mb-6; }
+
+.article-body ul { @apply list-disc list-inside mb-6 space-y-2; }
+.article-body ol { @apply list-decimal list-inside mb-6 space-y-2; }
+
+.article-body blockquote {
+  @apply pl-6 border-l-4 border-blue-200 italic text-slate-600 mb-8 mt-8;
+}
+
+.article-body pre {
+  @apply bg-slate-900 text-slate-50 p-6 rounded-2xl overflow-x-auto mb-8 mt-8 text-sm shadow-inner;
+}
+
+.article-body code:not(pre code) {
+  @apply bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded font-mono text-sm;
+}
+
+.article-body img {
+  @apply rounded-2xl shadow-lg border border-blue-50 mb-10 mt-10 max-w-full h-auto mx-auto;
+}
+
+.article-body table {
+  @apply w-full border-collapse mb-10 border border-blue-100 rounded-xl overflow-hidden shadow-sm;
+}
+
+.article-body th {
+  @apply bg-blue-50 text-blue-900 border-b border-blue-100 px-6 py-4 text-left font-bold text-sm uppercase tracking-wider;
+}
+
+.article-body td {
+  @apply border-b border-blue-50 px-6 py-4 text-slate-600;
+}
+
+.article-body tr:last-child td {
+  @apply border-b-0;
+}
+
+.article-body tr:nth-child(even) {
+  @apply bg-slate-50/50;
+}

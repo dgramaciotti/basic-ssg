@@ -1,0 +1,29 @@
+<%- include("../components/_head", { title: 'Articles' }) %>
+<body class="flex flex-col min-h-screen">
+    <%- include("../components/_header") %>
+
+    <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <h1 class="text-4xl font-extrabold text-slate-900 mb-12">Latest Articles</h1>
+        
+        <div class="grid gap-10">
+            <% articles.forEach(article => { %>
+                <article class="group relative bg-white p-8 rounded-2xl border border-blue-50 shadow-sm hover:shadow-md transition-all hover:border-blue-100">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
+                        <a href="/example-page/articles/<%= article.postUrl %>" class="after:absolute after:inset-0">
+                            <%= article.postName %>
+                        </a>
+                    </h2>
+                    <p class="text-slate-600 mb-6 line-clamp-2"><%= article.postDescription %></p>
+                    <div class="flex items-center gap-4 text-sm text-slate-400 font-medium">
+                        <span><%= article.postDate %></span>
+                        <span class="w-1 h-1 bg-slate-300 rounded-full"></span>
+                        <span><%= article.postAuthor %></span>
+                    </div>
+                </article>
+            <% }) %>
+        </div>
+    </main>
+
+    <%- include("../components/_footer") %>
+</body>
+</html>

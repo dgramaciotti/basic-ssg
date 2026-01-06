@@ -1,0 +1,33 @@
+<%- include("../components/_head", { title: postName }) %>
+<body class="flex flex-col min-h-screen">
+    <%- include("../components/_header") %>
+
+    <main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <article class="prose prose-slate max-w-none">
+            <header class="mb-12 border-b border-blue-50 pb-8">
+                <h1 class="text-4xl font-extrabold text-slate-900 mb-4"><%= postName %></h1>
+                <div class="flex items-center gap-6 text-sm text-slate-500 font-medium">
+                    <span class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <%= postDate %>
+                    </span>
+                    <span class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        <%= postAuthor %>
+                    </span>
+                    <span class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <%= postTime %>
+                    </span>
+                </div>
+            </header>
+
+            <div class="article-body">
+                <%- post %>
+            </div>
+        </article>
+    </main>
+
+    <%- include("../components/_footer") %>
+</body>
+</html>
