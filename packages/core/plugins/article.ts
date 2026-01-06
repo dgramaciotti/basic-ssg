@@ -1,4 +1,4 @@
-import { buildArticle } from "./buildArticle.js";
+import { buildArticle as buildArticleHook } from "./buildArticle.js";
 import { Plugin } from "../models/plugin.js";
 import { AppConfig } from "../models/appConfig.js";
 
@@ -17,7 +17,9 @@ export const articlePlugin = (options: ArticlePluginOptions = {}): Plugin => ({
       beforeBuild: [
         {
           glob: [articlePath],
-          fn: (files, cfg) => buildArticle(files, cfg, { articlePath, mdPaths }),
+          fn: function buildArticle(files, cfg) {
+            return buildArticleHook(files, cfg, { articlePath, mdPaths });
+          },
         },
       ],
       afterBuild: [],

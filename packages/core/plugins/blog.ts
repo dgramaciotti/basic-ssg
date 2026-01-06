@@ -1,4 +1,4 @@
-import { buildBlog } from "./buildBlog.js";
+import { buildBlog as buildBlogHook } from "./buildBlog.js";
 import { Plugin } from "../models/plugin.js";
 import { AppConfig } from "../models/appConfig.js";
 
@@ -18,7 +18,9 @@ export const blogPlugin = (options: BlogPluginOptions = {}): Plugin => ({
       beforeBuild: [
         {
           glob: [templatePath],
-          fn: (files, cfg) => buildBlog(files, cfg, { templatePath, mdPaths }),
+          fn: function buildBlog(files, cfg) {
+            return buildBlogHook(files, cfg, { templatePath, mdPaths });
+          },
         },
       ],
       afterBuild: [],

@@ -80,6 +80,8 @@ BasicSSG is powered by a flexible plugin system. For detailed information on how
 
 ## Deployment
 
+Since the output is static, you can deploy it to any static hosting service. Bellow are some examples:
+
 ### NGINX
 
 ```nginx
@@ -88,4 +90,16 @@ location / {
     index index.html;
     try_files $uri $uri/ $uri.html =404;
 }
+```
+
+### Express
+
+```Typescript
+import express from "express";
+
+const app = express();
+
+app.use(express.static("dist-site", { extensions: ["html"] }));
+
+app.listen(3000, () => console.log("listening on http://localhost:3000"));
 ```
