@@ -1,6 +1,6 @@
 {
   "name": "basic-ssg",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "main": "./dist/index.js",
   "exports": {
@@ -28,9 +28,9 @@
     "test": "vitest",
     "tsc": "tsc",
     "build:typescript": "npm run clean && npm run tsc && npm run build --workspaces && cp -R packages/templates dist/templates",
-    "version:patch": "pnpm -r version patch && git add . && git commit -m \"chore: release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
-    "version:minor": "pnpm -r version minor && git add . && git commit -m \"chore: release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
-    "version:major": "pnpm -r version major && git add . && git commit -m \"chore: release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
+    "version:patch": "pnpm version patch --no-git-tag-version && pnpm -r version patch --no-git-tag-version && git add . && git commit -m \"chore: release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
+    "version:minor": "pnpm version minor --no-git-tag-version && pnpm -r version minor --no-git-tag-version && git add . && git commit -m \"chore: release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
+    "version:major": "pnpm version major --no-git-tag-version && pnpm -r version major --no-git-tag-version && git add . && git commit -m \"chore: release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
     "publish:all": "pnpm -r publish --access public"
   },
   "bin": {
