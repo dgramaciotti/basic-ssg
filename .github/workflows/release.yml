@@ -27,8 +27,8 @@ jobs:
 
       - name: Build
         run: |
-          pnpm tsc
           pnpm -r build
+          pnpm tsc
           cp -R packages/templates dist/templates
 
       - name: Publish all packages
