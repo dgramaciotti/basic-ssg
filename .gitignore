@@ -6,6 +6,5 @@ dist-*
 temp
 drive-api*
 .env*
-*-lock*
 pages/**
 coverage
