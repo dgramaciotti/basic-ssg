@@ -5,10 +5,10 @@ import { AppConfig, Hooks, AppConfigSchema } from "./models/appConfig.js";
 
 import { logger } from "./utils/logger.js";
 
-const name = "pages.config.js";
+const CONFIG_NAME = "pages.config.js";
 
 export async function loadConfig(cwd = process.cwd()) {
-  const fullPath = path.join(cwd, name);
+  const fullPath = path.join(cwd, CONFIG_NAME);
 
   try {
     await fs.access(fullPath);
@@ -22,9 +22,12 @@ export async function loadConfig(cwd = process.cwd()) {
   }
 }
 
-export function resolveConfig(userConfig = {} as any, cwd = process.cwd()): AppConfig {
+export function resolveConfig(
+  userConfig = {} as any,
+  cwd = process.cwd(),
+): AppConfig {
   const config = AppConfigSchema.parse(userConfig);
-  
+
   const root = config.root;
   const outDir = config.outDir;
   const siteUrls = config.siteUrls;
@@ -61,15 +64,6 @@ export function resolveConfig(userConfig = {} as any, cwd = process.cwd()): AppC
       if (pluginHooks.afterBuild) {
         allHooks.afterBuild.push(...pluginHooks.afterBuild);
       }
-    }
-  }
-
-  if (userConfig.hooks) {
-    if (userConfig.hooks.beforeBuild) {
-      allHooks.beforeBuild.push(...userConfig.hooks.beforeBuild);
-    }
-    if (userConfig.hooks.afterBuild) {
-      allHooks.afterBuild.push(...userConfig.hooks.afterBuild);
     }
   }
 

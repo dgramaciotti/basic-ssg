@@ -11,7 +11,6 @@ async function buildEjs(files: string[], cfg: AppConfig) {
         .join(cfg.paths.dist, filePath.replace(/^pages\//, ""))
         .replace(/\.ejs$/, ".html");
 
-      await fs.mkdir(path.dirname(outPath), { recursive: true });
       return await renderTemplate(filePath, outPath, {}, globalReplacer);
     }),
   );

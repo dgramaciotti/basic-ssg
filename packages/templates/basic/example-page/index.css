@@ -1,5 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   --blue-50: #f0f9ff;
@@ -10,15 +10,21 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   @apply bg-slate-50 text-slate-900;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   @apply font-bold text-slate-900 tracking-tight;
 }
 
-.prose a, .article-body a {
+.prose a,
+.article-body a {
   @apply text-blue-600 hover:text-blue-700 transition-colors;
 }
 
@@ -26,14 +32,26 @@ h1, h2, h3, h4, h5, h6 {
   @apply text-slate-700 leading-relaxed;
 }
 
-.article-body h1 { @apply text-3xl mb-8 mt-12; }
-.article-body h2 { @apply text-2xl mb-6 mt-10 border-b border-blue-50 pb-2; }
-.article-body h3 { @apply text-xl mb-4 mt-8; }
+.article-body h1 {
+  @apply text-3xl mb-8 mt-12;
+}
+.article-body h2 {
+  @apply text-2xl mb-6 mt-10 border-b border-blue-50 pb-2;
+}
+.article-body h3 {
+  @apply text-xl mb-4 mt-8;
+}
 
-.article-body p { @apply mb-6; }
+.article-body p {
+  @apply mb-6;
+}
 
-.article-body ul { @apply list-disc list-inside mb-6 space-y-2; }
-.article-body ol { @apply list-decimal list-inside mb-6 space-y-2; }
+.article-body ul {
+  @apply list-disc list-inside mb-6 space-y-2;
+}
+.article-body ol {
+  @apply list-decimal list-inside mb-6 space-y-2;
+}
 
 .article-body blockquote {
   @apply pl-6 border-l-4 border-blue-200 italic text-slate-600 mb-8 mt-8;

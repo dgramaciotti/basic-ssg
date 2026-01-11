@@ -42,14 +42,6 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "peerDependencies": {
-    "@tailwindcss/cli": ">=4.0.0"
-  },
-  "peerDependenciesMeta": {
-    "tailwindcss": {
-      "optional": false
-    }
-  },
   "workspaces": [
     "packages/*"
   ],
@@ -65,7 +57,7 @@
     "fast-glob": "^3.3.3",
     "gray-matter": "^4.0.3",
     "markdown-it": "^14.1.0",
-    "tailwindcss": "^4.1.16",
+    "tailwindcss": "^4.1.18",
     "through2": "^4.0.2",
     "zod": "^4.3.5"
   },

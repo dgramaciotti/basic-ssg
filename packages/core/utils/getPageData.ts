@@ -2,7 +2,6 @@ import fg from "fast-glob";
 import { readFile, stat } from "node:fs/promises";
 import markdownit from "markdown-it";
 import path from "node:path";
-import { getFileUrl } from "./getFileUrl.js";
 import { calculateReadingTime } from "./calculateReadingTime.js";
 import matter from "gray-matter";
 
@@ -32,7 +31,7 @@ export async function getPageData(globPath: string) {
 
       return {
         post: htmlContent,
-        postUrl: getFileUrl(fileName),
+        postUrl: fileName.toLowerCase().replace(/\s+/g, "-"),
         postName: data.title ?? fileName,
         postDate:
           data.date ?? new Date(stats.birthtimeMs).toLocaleDateString("pt-BR"),

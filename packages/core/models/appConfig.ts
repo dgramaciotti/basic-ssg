@@ -6,10 +6,13 @@ export const AppConfigSchema = z.object({
   outDir: z.string().default("dist-site"),
   siteUrls: z.record(z.string(), z.string()).default({}),
   plugins: z.array(z.any()).optional().default([]),
-  hooks: z.object({
+  hooks: z
+    .object({
       beforeBuild: z.array(z.any()).default([]),
-      afterBuild: z.array(z.any()).default([])
-  }).optional().default({ beforeBuild: [], afterBuild: [] })
+      afterBuild: z.array(z.any()).default([]),
+    })
+    .optional()
+    .default({ beforeBuild: [], afterBuild: [] }),
 });
 
 export type AppConfig = z.infer<typeof AppConfigSchema> & {
@@ -22,7 +25,6 @@ export type AppConfig = z.infer<typeof AppConfigSchema> & {
     base: string;
     css: string;
   };
-  hooks: Hooks;
   plugins?: Plugin[];
 };
 

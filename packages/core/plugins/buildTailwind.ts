@@ -1,11 +1,11 @@
 import path from "path";
 import fs from "fs/promises";
-import execAsync from "../utils/execAsync.js";
 
-import { resolve } from "node:path";
 import { AppConfig } from "../models/appConfig.js";
 
-const bin = resolve(process.cwd(), "node_modules/.bin/tailwindcss");
+import postcss from "postcss";
+import tailwind from "@tailwindcss/postcss";
+import { readFile } from "node:fs/promises";
 
 async function buildTailwind(files: string[], cfg: AppConfig) {
   try {
@@ -16,7 +16,14 @@ async function buildTailwind(files: string[], cfg: AppConfig) {
         const outputCss = path.join(cfg.paths.dist, page, "output.css");
 
         await fs.mkdir(path.dirname(outputCss), { recursive: true });
-        await execAsync(`${bin} -i "${inputCss}" -o "${outputCss}" --minify`);
+        const processor = postcss([tailwind({ optimize: true })]);
+        const css = await readFile(inputCss, { encoding: "utf-8" });
+        const result = await processor.process(css, {
+          from: inputCss,
+          to: outputCss,
+        });
+
+        await fs.writeFile(outputCss, result.css);
       }),
     );
   } catch (e) {

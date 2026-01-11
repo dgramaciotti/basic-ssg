@@ -10,7 +10,7 @@ async function renderTemplate(
   inputPath: string,
   outputPath: string,
   data: any = {},
-  replacer?: (html: string) => string
+  replacer?: (html: string) => string,
 ) {
   const fileName = path.basename(outputPath, ".html");
   const renderData = { ...data, fileName };
@@ -26,6 +26,7 @@ async function renderTemplate(
         try {
           let replaced = replacer ? replacer(html) : html;
           const dirname = path.dirname(outputPath);
+          // If theres a folder create it recursively. ex. example_folder/my_file.ejs -> dist/example_folder/my_file.html
           await mkdir(dirname, { recursive: true });
           await writeFile(outputPath, replaced, {
             encoding: "utf-8",
@@ -36,7 +37,7 @@ async function renderTemplate(
           rej(e);
           return;
         }
-      }
+      },
     );
   });
 }
