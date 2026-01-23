@@ -12,7 +12,16 @@
     "rootDir": "packages",
     "outDir": "dist",
 
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@basic-ssg/core": ["packages/core/src/index.ts"],
+      "@basic-ssg/core/*": ["packages/core/src/*"],
+      "@basic-ssg/plugin-assets": ["packages/plugin-assets/src/index.ts"],
+      "@basic-ssg/plugin-google-docs": [
+        "packages/plugin-google-docs/src/index.ts"
+      ]
+    }
   },
   "include": ["packages/**/*.ts"]
 }
