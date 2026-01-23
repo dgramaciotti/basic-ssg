@@ -23,7 +23,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc && mkdir -p dist && nx run-many -t build && cp -R packages/templates dist/templates",
+    "build": "mkdir -p dist && nx run-many -t build && tsc && cp -R packages/templates dist/templates",
     "clean": "rm -rf dist dist-site temp pages *.tsbuildinfo packages/*/*.tsbuildinfo .nx",
     "version:patch": "pnpm version patch --no-git-tag-version && git tag v$(node -p \"require('./package.json').version\")",
     "version:minor": "pnpm version minor --no-git-tag-version && git tag v$(node -p \"require('./package.json').version\")",
