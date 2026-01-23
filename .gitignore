@@ -8,3 +8,8 @@ drive-api*
 .env*
 pages/**
 coverage
+
+
+.nx/cache
+.nx/workspace-data
+vitest.config.*.timestamp*

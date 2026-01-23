@@ -27,8 +27,8 @@ jobs:
           npm install -g npm@latest
           pnpm install
 
-      - name: Build the site
-        run: pnpm run build-cli
+      - name: Build
+        run: pnpm run build && pnpm exec basic-ssg build
 
       - uses: actions/upload-pages-artifact@v3
         with:

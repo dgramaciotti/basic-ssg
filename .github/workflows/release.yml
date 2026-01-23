@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   publish:
@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24.12
-          cache: 'pnpm'
+          cache: "pnpm"
 
       - name: Install dependencies
         run: |
@@ -28,9 +28,7 @@ jobs:
 
       - name: Build
         run: |
-          pnpm -r build
-          pnpm tsc
-          cp -R packages/templates dist/templates
+          pnpm build
 
       - name: Publish all packages
         run: |
