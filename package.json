@@ -1,6 +1,6 @@
 {
   "name": "basic-ssg",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "type": "module",
   "main": "./dist/index.js",
   "exports": {
@@ -26,11 +26,10 @@
     "build-cli": "pnpm run build:typescript && basic-ssg init && basic-ssg build",
     "clean": "rm -rf dist dist-site temp pages *.tsbuildinfo packages/*/*.tsbuildinfo",
     "test": "vitest",
-    "tsc": "tsc",
-    "build:typescript": "npm run clean && npm run tsc && npm run build --workspaces && cp -R packages/templates dist/templates",
-    "version:patch": "pnpm version patch --no-git-tag-version && pnpm -r version patch --no-git-tag-version && git add . && git commit -m \"chore: release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
-    "version:minor": "pnpm version minor --no-git-tag-version && pnpm -r version minor --no-git-tag-version && git add . && git commit -m \"chore: release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
-    "version:major": "pnpm version major --no-git-tag-version && pnpm -r version major --no-git-tag-version && git add . && git commit -m \"chore: release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
+    "build:typescript": "npm run clean && npx tsc && npm run build --workspaces && cp -R packages/templates dist/templates",
+    "version:patch": "pnpm version patch --no-git-tag-version && git tag v$(node -p \"require('./package.json').version\")",
+    "version:minor": "pnpm version minor --no-git-tag-version && git tag v$(node -p \"require('./package.json').version\")",
+    "version:major": "pnpm version major --no-git-tag-version && git tag v$(node -p \"require('./package.json').version\")",
     "publish:all": "pnpm -r publish --access public"
   },
   "bin": {
@@ -39,8 +38,15 @@
   "files": [
     "dist/**"
   ],
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "SS",
+    "static",
+    "site",
+    "generation",
+    "website",
+    "builder"
+  ],
+  "author": "Daniel Guedes",
   "license": "MIT",
   "workspaces": [
     "packages/*"
@@ -64,10 +70,12 @@
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@types/ejs": "^3.1.5",
+    "@types/express": "^5.0.6",
     "@types/node": "^25.0.3",
     "@types/turndown": "^5.0.6",
     "@vitest/coverage-istanbul": "^4.0.16",
     "eslint": "^9.39.2",
+    "express": "^5.2.1",
     "prettier": "^3.7.4",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.51.0",

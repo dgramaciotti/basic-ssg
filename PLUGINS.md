@@ -1,21 +1,22 @@
 # Plugin System Documentation
 
-BasicSSG is built on a "Microkernel" architecture. The core is responsible for configuration loading and the build loop, while almost every feature—from EJS rendering to Tailwind CSS—is implemented as a plugin.
+BasicSSG is built on a "Microkernel" architecture. The core is responsible for configuration loading and the build loop, and everything else is implemented as a plugin.
 
 ## Table of Contents
+
 1. [Architecture Overview](#architecture-overview)
 2. [Environment Variables](#environment-variables)
 3. [Plugin Interface](#plugin-interface)
 4. [The Hooks System](#the-hooks-system)
 5. [Creating Your First Plugin](#creating-your-first-plugin)
 6. [Core Plugin Reference](#core-plugin-reference)
-    - [EJS Plugin](#ejs-plugin)
-    - [Tailwind Plugin](#tailwind-plugin)
-    - [Sitemap Plugin](#sitemap-plugin)
-    - [Blog Plugin](#blog-plugin)
-    - [Article Plugin](#article-plugin)
-    - [Assets Plugin](#assets-plugin)
-    - [Google Docs Sync Plugin](#google-docs-sync-plugin)
+   - [EJS Plugin](#ejs-plugin)
+   - [Tailwind Plugin](#tailwind-plugin)
+   - [Sitemap Plugin](#sitemap-plugin)
+   - [Blog Plugin](#blog-plugin)
+   - [Article Plugin](#article-plugin)
+   - [Assets Plugin](#assets-plugin)
+   - [Google Docs Sync Plugin](#google-docs-sync-plugin)
 
 ---
 
@@ -27,12 +28,12 @@ The build process is driven by **Hooks**. Plugins register functions to these ho
 
 BasicSSG and its plugins use environment variables for configuration and sensitive data. You can define these in a `.env` file at the root of your project.
 
-| Variable | Description | Used By |
-| :--- | :--- | :--- |
-| `GOOGLE_CLIENT_EMAIL` | Service Account email for Google APIs. | `googleDocsPlugin` |
-| `GOOGLE_PRIVATE_KEY` | Private key for the Service Account. | `googleDocsPlugin` |
-| `BLOG_FOLDER_ID` | The ID of the Google Drive folder to sync. | `googleDocsPlugin` |
-| `SSG_WATCH_MODE` | Set to `true` when running in watch/dev mode. | Core / All Plugins |
+| Variable              | Description                                   | Used By            |
+| :-------------------- | :-------------------------------------------- | :----------------- |
+| `GOOGLE_CLIENT_EMAIL` | Service Account email for Google APIs.        | `googleDocsPlugin` |
+| `GOOGLE_PRIVATE_KEY`  | Private key for the Service Account.          | `googleDocsPlugin` |
+| `BLOG_FOLDER_ID`      | The ID of the Google Drive folder to sync.    | `googleDocsPlugin` |
+| `SSG_WATCH_MODE`      | Set to `true` when running in watch/dev mode. | Core / All Plugins |
 
 ---
 
@@ -42,9 +43,9 @@ A plugin is a simple object with a `name` and a `setup` function.
 
 ```typescript
 type Plugin = {
-    name: string;
-    setup: (config: AppConfig) => Hooks;
-}
+  name: string;
+  setup: (config: AppConfig) => Hooks;
+};
 ```
 
 - **`name`**: A unique identifier for the plugin (e.g., `core-ejs`).
@@ -55,12 +56,16 @@ type Plugin = {
 There are two primary hooks in the build cycle:
 
 ### `beforeBuild`
-Used for generating or transforming files before the final output.
+
+Used for generating or transforming files before the final output. Will execute first, everything in parallel.
+
 - **`glob`**: An array of file patterns to watch or process.
 - **`fn(files, config)`**: The function executed during the build.
 
 ### `afterBuild`
-Used for post-processing tasks like generating sitemaps or cleanup.
+
+Used for post-processing tasks like generating sitemaps or cleanup. Will execute after `beforeBuild` hooks finish. Everything in parallel.
+
 - **`glob`**: Patterns for files affected by the build.
 - **`fn(files, config)`**: Executed after all `beforeBuild` hooks have finished.
 
@@ -89,58 +94,98 @@ const robotsPlugin = () => ({
 });
 ```
 
+Alternatively, you can pass a `globPath` array to the `glob` parameter on the hooks, and you'll get what files have matched.
+
+ex.
+
+```javascript
+const myCustomPlugin = () => ({
+  name: "my-custom-plugin",
+  setup: (cfg) => ({
+    beforeBuild: [
+      {
+        glob: [cfg.paths.base, "!**/components/**", "!**/custom/**"],
+        fn: (files, cfg) => console.log("hello world: ", files, cfg),
+      },
+    ],
+    afterBuild: [],
+  }),
+});
+```
+
 ---
 
 ## Core Plugin Reference
 
 ### EJS Plugin
+
 - **Usage**: `ejsPlugin()`
 - **Input**: All `.ejs` files in your root (typically `pages/**/*.ejs`), excluding those in `components` or `custom`.
 - **Output**: Compiled `.html` files in `dist-site`.
 - **Pattern**: Standardizes layout by allowing shared components.
 
+This is the core hook, recommended way to build sites. Organize your page structure, share common components, and map them to the output.
+
 ### Tailwind Plugin
+
 - **Usage**: `tailwindPlugin()`
 - **Input**: `index.css` files.
 - **Output**: Processed `output.css` files with Tailwind CSS 4.0.
 - **Pattern**: Automatically scans your EJS files for classes and generates an optimized stylesheet.
 
+This plugin will watch for `index.css` files, which should have a tailwind declaration, as well as your base styles, then will process, minimize and append the `output.css` file to the output corresponding folder.
+
 ### Sitemap Plugin
+
 - **Usage**: `sitemapPlugin()`
 - **Input**: The generated `dist-site` directory.
 - **Output**: `sitemap.xml` at the root of your output directory.
 - **Pattern**: An `afterBuild` plugin that uses `siteUrls` from your config to map generated HTML files to absolute URLs.
 
+This plugin is utilized to process the project output folder, ex. `dist`, check for all HTML files, config base url, and generate the corresponding sitemap. It follows the `folder/page` structure, ignoring `.html` extensions on the files.
+
 ### Blog Plugin
+
 - **Usage**: `blogPlugin({ templatePath: "...", mdPaths: "..." })`
 - **Input**: Markdown files (`.md`).
 - **Output**: Individual blog posts rendered using a specified EJS template.
 - **Pattern**: Splits content into metadata (gray-matter) and HTML (markdown-it).
 
+Another core plugin, utilized for blogging. Posts are stored on the `posts` folder, utilizes the `blog.ejs` as a template, passing data captured from the posts using gray-matter and the MD content. Check the examples for more info.
+
 ### Article Plugin
+
 - **Usage**: `articlePlugin({ articlePath: "...", mdPaths: "..." })`
 - **Input**: Markdown files.
 - **Output**: An index page (e.g., `articles.html`) listing all posts with their metadata.
 - **Pattern**: Collects metadata from all posts into an `articles` array passed to the template.
 
+Planned to be used alongside the `Blog` plugin. Builds a blog list of posts page, using the `articles.ejs` template and passing the same data captured from the gray-matter and MD parsing.
+
 ### Assets Plugin
+
 - **Usage**: `assetsPlugin()`
 - **Input**: Any file inside `**/assets/**` folders.
 - **Output**: Copied directly to the same relative path in `dist-site`. Transforms raster images (png, jpeg, jpg, etc) to webp with sharp, also transforming size to fixed value.
 - **Pattern**: Simple passthrough for images, fonts, and other static media.
 
+This plugin process images and static media. For simple files and static it simply copies them to the output assets folder. For raster images (png, jpeg, etc) it passes through sharp, with a fixed width X height, compressing the image and transforming it into a webp.
+
 ### Google Docs Sync Plugin
+
 Synchronizes a Google Drive folder containing Google Docs with your local `posts` directory, converting them to Markdown.
 
 #### Usage
+
 ```javascript
 googleDocsPlugin({
-    pageName: "my-page",
-    skip: process.env.SSG_WATCH_MODE === "true" // if not skipped will cause an infinite loop
-})
+  pageName: "my-page",
+  skip: process.env.SSG_WATCH_MODE === "true", // if not skipped will cause an infinite loop
+});
 ```
 
 #### Setup Requirements
+
 To use this plugin, you must set up a Google Cloud Service Account that has permission to read your Drive folder.
 
 1.  **Google Cloud Console**:
